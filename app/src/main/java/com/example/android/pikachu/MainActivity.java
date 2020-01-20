@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActionBar actionBar=getSupportActionBar();
-        //actionBar.getSubtitle("Click + button to insert Image");
+        actionBar.setSubtitle("Click camera button to Scan ->");
 
         mResltEt = findViewById(R.id.resultEt);
         mPreviewIv = findViewById(R.id.imageIv);
