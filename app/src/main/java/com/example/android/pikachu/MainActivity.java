@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     EditText mResltEt;
     ImageView mPreviewIv;
     Button mSaveBtn;
-
+String category;
 
     public static final int CAMERA_REQUEST_CODE = 200;
     public static final int STORAGE_REQUEST_CODE = 400;
@@ -281,14 +282,88 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    void setCategory()
+    {
+        EditText textView=(EditText) findViewById(R.id.resultEt);
+
+        if(textView.getText().toString().contains("Liver function tests")||
+                textView.getText().toString().contains("Liver")||
+                textView.getText().toString().contains("LFT")||
+                textView.getText().toString().contains("LIVER")
+        ||textView.getText().toString().contains("liver")){
+            category="Liver Test";
+        }
+
+        else if(textView.getText().toString().contains("RFT")
+        ||textView.getText().toString().contains("Renal Function Test")||
+                textView.getText().toString().contains("KIDNEY")||
+                textView.getText().toString().contains("kidney")||
+                textView.getText().toString().contains("rft")
+        ){
+            category="Kidney Test";
+        }
+
+        else if(textView.getText().toString().contains("Blood Sugar")
+                ||textView.getText().toString().contains("Sugar")||
+                textView.getText().toString().contains("SUGAR")||
+                textView.getText().toString().contains("sugar")||
+                textView.getText().toString().contains("Diabetes")
+        ){
+            category="Sugar Test";
+        }
+
+        else if(textView.getText().toString().contains("thyroid stimulating hormone test")
+                ||textView.getText().toString().contains("THYROID STIMULATING HORMONE TEST")||
+                textView.getText().toString().contains("Thyroid Stimulating Hormone Test")||
+                textView.getText().toString().contains("TSH")||
+                textView.getText().toString().contains("T3")||
+        textView.getText().toString().contains("triiodothyronine")||
+                textView.getText().toString().contains("Triiodothyronine")||
+                textView.getText().toString().contains("thyroxine")||
+                textView.getText().toString().contains("Thyroxine")||
+                textView.getText().toString().contains("Thyroid")||
+                textView.getText().toString().contains("thyroid")
+        ){
+            category="Thyroid Test";
+        }
+
+
+        else if(textView.getText().toString().contains("billirubene")
+                ||textView.getText().toString().contains("Billirubene")||
+                textView.getText().toString().contains("BILLIRUBENE")||
+                textView.getText().toString().contains("JAUNDICE")||
+                textView.getText().toString().contains("Jaundice")||
+                textView.getText().toString().contains("jaundice")
+        ){
+            category="Jaundice Test";
+        }
+
+        else if(textView.getText().toString().contains("Hiv positive")
+                ||textView.getText().toString().contains("Hiv Positive")||
+                textView.getText().toString().contains("HIV Positive")||
+                textView.getText().toString().contains("HIV positive")||
+                textView.getText().toString().contains("HIV POSITIVE")||
+                textView.getText().toString().contains("HIV+")||
+                textView.getText().toString().contains("Hiv+")||
+                textView.getText().toString().contains("hiv+")||
+                textView.getText().toString().contains("HIV")||
+                textView.getText().toString().contains("Hiv")
+        ){
+            category="HIV Test";
+        }
+
+        else  category="Common Test";
+        }
 
 
     private void savePdf() {
         //create object of Document class
+        setCategory();
         Document mDoc = new Document();
         //pdf file name
-        String mFileName = new SimpleDateFormat("yyyyMMdd_HHmmss",
+        String mFileName = new SimpleDateFormat("yyyyMMdd_HHmm",
                 Locale.getDefault()).format(System.currentTimeMillis());
+        mFileName=mFileName.concat(category);
         //pdf file path
         String mFilePath = Environment.getExternalStorageDirectory() + "/" + "PikachuDocument" + "/" + mFileName + ".pdf";
 
