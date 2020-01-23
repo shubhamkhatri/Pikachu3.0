@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
         String mFileName = new SimpleDateFormat("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(System.currentTimeMillis());
         //pdf file path
-        String mFilePath = Environment.getExternalStorageDirectory() + "/" + mFileName + ".pdf";
+        String mFilePath = Environment.getExternalStorageDirectory() + "/" + "PikachuDocument" + "/" + mFileName + ".pdf";
 
         try {
             //create instance of PdfWriter class
