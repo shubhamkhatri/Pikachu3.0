@@ -13,7 +13,11 @@
         android:roundIcon="@mipmap/heart_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pdfViewer"></activity>
+        <activity android:name=".HomeActivity">
+            
+        </activity>
+        <activity android:name=".graphActivity" />
+        <activity android:name=".pdfViewer" />
         <activity android:name=".DocumentActivity" />
         <activity android:name=".firstActivity">
             <intent-filter>
