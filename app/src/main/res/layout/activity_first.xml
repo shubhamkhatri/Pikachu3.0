@@ -7,8 +7,7 @@
 
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:background="#E0E0E0"
-    >
+    android:background="@drawable/mainback"    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,8 +16,8 @@
         android:layout_centerHorizontal="true"
         android:text="Pikachu"
         android:padding="10dp"
-        android:textColor="#EEFF41"
-        android:textSize="60sp"
+        android:textColor="#000000"
+        android:textSize="70sp"
         android:id="@+id/pikachu"/>
     <ImageView
         android:layout_width="200dp"
@@ -32,7 +31,7 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/camera"
+        android:src="@drawable/camm"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:id="@+id/camera"
