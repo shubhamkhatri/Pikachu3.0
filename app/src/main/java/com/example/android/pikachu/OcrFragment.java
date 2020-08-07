@@ -1,0 +1,112 @@
+package com.example.android.pikachu;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Environment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class OcrFragment extends Fragment {
+
+    public List<String> listt = new ArrayList<>();
+    String check;
+    String categorySet;
+    String getCategorySet;
+    final ArrayList<word> fileList=new ArrayList<word>();
+    private FloatingActionButton add;
+    private FloatingActionButton graph;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_ocr, container, false);
+        File root = new File(Environment.getExternalStorageDirectory() + "/" + "PikachuDocument");
+
+        ListDir(root,v);
+
+        graph=v.findViewById(R.id.graph_view);
+        graph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),graphActivity.class);
+                startActivity(i);
+            }
+        });
+
+        add=v.findViewById(R.id.add_ocr);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(), OcrCreateActivity.class);
+                startActivity(i);
+            }
+        });
+
+        return v;
+    }
+
+    String getCheck(File ff) {
+        check = ff.getName();
+        if (check.contains("Liver Test")) {
+            categorySet = "Liver Test";
+        } else if (check.contains("Kidney Test")) {
+            categorySet = "Kidney Test";
+        } else if (check.contains("Sugar Test")) {
+            categorySet = "Sugar Test";
+        } else if (check.contains("Thyroid Test")) {
+            categorySet = "Thyroid Test";
+        } else if (check.contains("Jaundice Test")) {
+            categorySet = "Jaundice Test";
+        } else if (check.contains("HIV Test")) {
+            categorySet = "HIV Test";
+        } else {
+            categorySet = "Common Test";
+        }
+        return categorySet;
+    }
+
+    void ListDir(File f,View v) {
+        File[] files = f.listFiles();
+        fileList.clear();
+        if(files!=null) {
+            for (File file : files) {
+                listt.add(file.getPath());
+                getCategorySet = getCheck(file);
+                fileList.add(new word(getCategorySet, file.getName()));
+            }
+
+            DocumentAdaptor directoryList = new DocumentAdaptor(getActivity(), fileList, R.color.colorAccent);
+
+            ListView listView = (ListView) v.findViewById(R.id.list);
+            listView.setAdapter(directoryList);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                @Override
+                                                public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                                                    Intent appInfo = new Intent(getActivity(), pdfViewer.class);
+                                                    appInfo.putExtra("name_path", listt.get(position));
+                                                    startActivity(appInfo);
+                                                }
+                                            }
+
+            );
+        }
+
+    }
+
+
+}

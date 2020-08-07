@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,13 +27,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -47,7 +47,7 @@ import com.itextpdf.text.Document;
 import java.text.SimpleDateFormat;
 
 
-public class MainActivity extends AppCompatActivity {
+public class OcrCreateActivity extends AppCompatActivity {
 
     EditText mResltEt;
     ImageView mPreviewIv;
@@ -68,7 +68,7 @@ String category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_ocr_create);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setSubtitle("Click camera button to Scan ->");
 
@@ -106,7 +106,7 @@ String category;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_ocr, menu);
         return true;
     }
 
@@ -116,8 +116,6 @@ String category;
         if (id == R.id.addImage) {
             showImageImportDialog();
         }
-        if (id == R.id.settings)
-            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
 
@@ -153,9 +151,9 @@ String category;
     private void pickGallery() {
 
         Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("Image/*");
+        intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
+        startActivityForResult(Intent.createChooser(intent, "select image"), IMAGE_PICK_GALLERY_CODE);
     }
 
     private void pickCamera() {
@@ -168,7 +166,6 @@ String category;
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
-
 
     private boolean checkStoragePermission() {
         boolean result = ContextCompat.checkSelfPermission(this,
@@ -272,9 +269,8 @@ String category;
                             TextBlock myItem = items.valueAt(i);
                             sb.append(myItem.getValue());
                             sb.append("\n");
-
                         }
-                        mResltEt.setText(sb.toString());
+                        mResltEt.setText(sb.toString().trim());
                     }
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     Exception error = result.getError();
@@ -282,6 +278,7 @@ String category;
                 }
             }
         }
+
     void setCategory()
     {
         EditText textView=(EditText) findViewById(R.id.resultEt);
@@ -372,8 +369,19 @@ String category;
             PdfWriter.getInstance(mDoc, new FileOutputStream(mFilePath));
             //open the document for writing
             mDoc.open();
+
+            Rectangle rect= new Rectangle(36,108);
+            rect.enableBorderSide(1);
+            rect.enableBorderSide(2);
+            rect.enableBorderSide(4);
+            rect.enableBorderSide(8);
+            rect.setBorder(2);
+            rect.setBorderColor(BaseColor.BLACK);
+            rect.setBorderWidth(3);
+            rect.setUseVariableBorders(true);
+            mDoc.add(rect);
             //get text from EditText i.e. mTextEt
-            String mText = mResltEt.getText().toString();
+            String mText = mResltEt.getText().toString().trim();
 
             //add author of the document (optional)
             mDoc.addAuthor("shubham");

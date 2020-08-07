@@ -7,7 +7,7 @@
 
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context=".MainActivity">
+    tools:context=".OcrCreateActivity">
 
 
     <ScrollView
@@ -43,14 +43,14 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:id="@+id/resultEt"
-
                         android:autoLink="all"
                         android:padding="5dp"
                         android:textColor="#000"
                         android:background="@null"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                       />
 
                     <Button
                         android:id="@+id/saveBtn"
@@ -87,10 +87,13 @@
                         android:textSize="20sp"
                         android:textColor="@color/colorPrimary"/>
                     <ImageView
-                        android:maxHeight="250dp"
+                        android:maxHeight="500dp"
                         android:id="@+id/imageIv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center"
+                        android:adjustViewBounds="true"
+                        android:layout_marginTop="18dp"/>
 
 
                 </LinearLayout>

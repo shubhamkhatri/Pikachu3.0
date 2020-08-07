@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#BB86FC</color>
 
+    <color name="severelyUnderweight">#1564B3</color>
+    <color name="underweight">#21a6f3</color>
+    <color name="normal">#40bc64</color>
+    <color name="overweight">#fc5449</color>
+    <color name="obese">#D32F2F</color>
+
 </resources>

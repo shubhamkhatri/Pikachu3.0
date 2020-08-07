@@ -13,7 +13,7 @@ import com.github.barteksc.pdfviewer.util.FitPolicy;
 
 import java.io.File;
 
-public class pdfViewer extends DocumentActivity{
+public class pdfViewer extends AppCompatActivity{
     String changeText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
