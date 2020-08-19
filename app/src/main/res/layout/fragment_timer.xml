@@ -23,5 +23,12 @@
         app:maxImageSize="35dp"
         app:tint="@android:color/white" />
 
+    <TextView
+        android:id="@+id/no_med"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Medicine Alarm yet"
+        android:layout_centerInParent="true"/>
+
 
 </RelativeLayout>

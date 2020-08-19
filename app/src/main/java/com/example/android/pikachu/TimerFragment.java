@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class TimerFragment extends Fragment {
     private int Hour, Minute;
     private int Everyday = 0, Sunday = 0, Monday = 0, Tuesday = 0, Wednesday = 0, Thursday = 0, Friday = 0, Saturday = 0, State = 0;
     private ListView listView;
+    private TextView defaultMed;
 
 
     @Nullable
@@ -38,6 +40,7 @@ public class TimerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_timer, container, false);
 
+        defaultMed=v.findViewById(R.id.no_med);
         mDatabaseHelper = new DatabaseHelper(getActivity());
         listView = v.findViewById(R.id.list_medicine);
         populateListView();
@@ -79,10 +82,16 @@ public class TimerFragment extends Fragment {
             listData.add(new AlarmList(Name, Hour, Minute, Quantity, Quality, Everyday, Sunday,
                     Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, State));
         }
-        //create the list adapter and set the adapter
-        final MedicineAdapter medicineAdapter = new MedicineAdapter(getActivity(), listData);
-        listView.setAdapter(medicineAdapter);
-
+        if(listData.isEmpty())
+        {
+            defaultMed.setVisibility(View.VISIBLE);
+        }
+        else {
+            defaultMed.setVisibility(View.GONE);
+            //create the list adapter and set the adapter
+            final MedicineAdapter medicineAdapter = new MedicineAdapter(getActivity(), listData);
+            listView.setAdapter(medicineAdapter);
+        }
     }
 
 }

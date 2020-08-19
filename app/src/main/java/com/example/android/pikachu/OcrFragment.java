@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class OcrFragment extends Fragment {
     final ArrayList<word> fileList = new ArrayList<word>();
     private FloatingActionButton add;
     private FloatingActionButton graph;
+    private TextView defaultOcr;
 
     @Nullable
     @Override
@@ -41,7 +43,7 @@ public class OcrFragment extends Fragment {
         File root = new File(Environment.getExternalStorageDirectory() + "/" + "PikachuDocument");
 
         ListDir(root, v);
-
+        defaultOcr = (TextView) v.findViewById(R.id.no_reports);
         graph = v.findViewById(R.id.graph_view);
         graph.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,53 +94,56 @@ public class OcrFragment extends Fragment {
                 getCategorySet = getCheck(file);
                 fileList.add(new word(getCategorySet, file.getName()));
             }
+            if (fileList.isEmpty()) {
+                defaultOcr.setVisibility(View.VISIBLE);
+            } else {
+                defaultOcr.setVisibility(View.GONE);
+                final DocumentAdaptor directoryList = new DocumentAdaptor(getActivity(), fileList, R.color.colorAccent);
 
-            final DocumentAdaptor directoryList = new DocumentAdaptor(getActivity(), fileList, R.color.colorAccent);
+                ListView listView = (ListView) v.findViewById(R.id.list);
+                listView.setAdapter(directoryList);
 
-            ListView listView = (ListView) v.findViewById(R.id.list);
-            listView.setAdapter(directoryList);
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                                @Override
-                                                public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-                                                    Intent appInfo = new Intent(getActivity(), pdfViewer.class);
-                                                    appInfo.putExtra("name_path", listt.get(position));
-                                                    startActivity(appInfo);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                    @Override
+                                                    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                                                        Intent appInfo = new Intent(getActivity(), pdfViewer.class);
+                                                        appInfo.putExtra("name_path", listt.get(position));
+                                                        startActivity(appInfo);
+                                                    }
                                                 }
-                                            }
 
-            );
-            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                );
+                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
 
-                    builder.setMessage("Do you really want to delete this Job?").setCancelable(false)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(final DialogInterface dialogInterface, int i) {
-                                    File file = new File(listt.get(position));
-                                    boolean deleted = file.delete();
-                                    if (deleted) {
-                                        directoryList.remove(directoryList.getItem(position));
-                                        directoryList.notifyDataSetChanged();
+                        builder.setMessage("Do you really want to delete this Job?").setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(final DialogInterface dialogInterface, int i) {
+                                        File file = new File(listt.get(position));
+                                        boolean deleted = file.delete();
+                                        if (deleted) {
+                                            directoryList.remove(directoryList.getItem(position));
+                                            directoryList.notifyDataSetChanged();
+                                        }
                                     }
-                                }
-                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
 
-                    android.app.AlertDialog alert = builder.create();
-                    alert.show();
-                    return true;
-                }
-            });
+                        android.app.AlertDialog alert = builder.create();
+                        alert.show();
+                        return true;
+                    }
+                });
+            }
         }
-
     }
 
 

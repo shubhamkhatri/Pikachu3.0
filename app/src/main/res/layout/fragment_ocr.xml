@@ -37,4 +37,11 @@
         app:borderWidth="0dp"
         />
 
+    <TextView
+        android:id="@+id/no_reports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Medicine Reports yet"
+        android:layout_centerInParent="true"/>
+
 </RelativeLayout>
