@@ -13,13 +13,13 @@ import com.github.barteksc.pdfviewer.util.FitPolicy;
 
 import java.io.File;
 
-public class pdfViewer extends AppCompatActivity{
-    String changeText;
+public class pdfViewer extends AppCompatActivity {
+    private String changeText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_viewer);
-
 
 
         Intent appInfo = getIntent();
@@ -31,9 +31,7 @@ public class pdfViewer extends AppCompatActivity{
             // Extracting sent text from intent
 
 
-
         }
-
 
 
         PDFView pdfView = findViewById(R.id.pdfView);

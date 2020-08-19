@@ -14,15 +14,15 @@ import java.util.ArrayList;
 public class DocumentAdaptor extends ArrayAdapter<word> {
 
     int mcolorId;
+
     public DocumentAdaptor(Activity context, ArrayList<word> words, int colorId) {
         super(context, 0, words);
-        mcolorId=colorId;
+        mcolorId = colorId;
     }
 
 
     @Override
-    public View getView(int position,View convertView,  ViewGroup parent) {
-
+    public View getView(int position, View convertView, ViewGroup parent) {
 
 
         View listItemView = convertView;
@@ -31,25 +31,15 @@ public class DocumentAdaptor extends ArrayAdapter<word> {
                     R.layout.list_item, parent, false);
         }
 
-       word currentWord= getItem(position);
+        word currentWord = getItem(position);
 
 
-        TextView nameTextView =(TextView) listItemView.findViewById(R.id.name_text_view);
+        TextView nameTextView = (TextView) listItemView.findViewById(R.id.name_text_view);
         nameTextView.setText(currentWord.getNameTranslation());
 
-        TextView categryTextView = (TextView)listItemView.findViewById(R.id.categry_text_view);
+        TextView categryTextView = (TextView) listItemView.findViewById(R.id.categry_text_view);
         categryTextView.setText(currentWord.getCategryTranslation());
 
-       // View popupButton = listItemView.findViewById(R.id.popup);
-        //popupButton.setTag(getItem(position));
-        //popupButton.setOnClickListener();
-
-
-        View textContainer = listItemView.findViewById(R.id.text_container);
-
-        //int color = ContextCompat.getColor(getContext(), mcolorId);
-
-        textContainer.setBackgroundColor(0xFF00FF00);
 
         return listItemView;
 

@@ -19,14 +19,16 @@ public class NotificationReceiver extends BroadcastReceiver {
         String quantity = intent.getStringExtra("quantity");
         String quality = intent.getStringExtra("quality");
         int id = intent.getIntExtra("id", 0);
-      //  boolean days[] = intent.getBooleanArrayExtra("days");
+        //  boolean days[] = intent.getBooleanArrayExtra("days");
 
         String Heading = "Medicine Reminder";
         String text = "Reminder for " + name + " " + quantity + " " + quality;
-        //for (int i = 0; i < 7; i++) {
-        //  if (days[i]) {
+
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         Intent repeatingIntent = new Intent(context, NotificationView.class);
+        repeatingIntent.putExtra("Name", name);
+        repeatingIntent.putExtra("Quality", quality);
+        repeatingIntent.putExtra("Quantity", quantity);
         repeatingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, id, repeatingIntent, PendingIntent.FLAG_UPDATE_CURRENT);

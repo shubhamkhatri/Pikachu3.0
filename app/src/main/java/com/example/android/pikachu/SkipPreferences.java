@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 public class SkipPreferences {
     private static final String LAUNCH = "LaunchSkip";
     private static final String PREFERENCE = "SkipPref";
-    int MODE = 0;
+    private int MODE = 0;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor spEditor;
     private Context context;

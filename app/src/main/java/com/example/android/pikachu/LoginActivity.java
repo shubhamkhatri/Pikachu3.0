@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText pass;
     private Button loginButton;
     private TextView signupp;
-    private TextView forgetPass,skip;
+    private TextView forgetPass, skip;
     private ProgressDialog progressDialog;
     private TextInputLayout inputLayoutPassword;
     private FirebaseAuth firebaseAuth;
@@ -41,14 +42,14 @@ public class LoginActivity extends AppCompatActivity {
         loginPreferences = new LoginPreferences(this);
         if (loginPreferences.DonarLaunch() == 1) {
             Intent intent = new Intent(LoginActivity.this, TabLayoutActivity.class);
-            // intent.putExtra("fragment id",0);
+            intent.putExtra("fragment id", 0);
             startActivity(intent);
             finish();
         }
-        skipPreferences=new SkipPreferences(this);
-        if(skipPreferences.SkipLaunch()==1){
+        skipPreferences = new SkipPreferences(this);
+        if (skipPreferences.SkipLaunch() == 1) {
             Intent intent = new Intent(LoginActivity.this, TabLayoutActivity.class);
-            // intent.putExtra("fragment id",0);
+            intent.putExtra("fragment id", 0);
             startActivity(intent);
             finish();
         }
@@ -62,14 +63,14 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         progressDialog = new ProgressDialog(this);
-        skip=(TextView)findViewById(R.id.skip_login);
+        skip = (TextView) findViewById(R.id.skip_login);
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 skipPreferences.setLaunch(1);
                 finish();
-                Intent i= new Intent(LoginActivity.this,TabLayoutActivity.class);
-                // i.putExtra("fragment id",1);
+                Intent i = new Intent(LoginActivity.this, TabLayoutActivity.class);
+                i.putExtra("fragment id", 0);
                 startActivity(i);
             }
         });
@@ -82,6 +83,8 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (pass.getText().toString().trim().isEmpty()) {
                     inputLayoutPassword.setError(getString(R.string.err_msg));
                 } else {
+                    username.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    pass.onEditorAction(EditorInfo.IME_ACTION_DONE);
                     inputLayoutPassword.setErrorEnabled(false);
                     validate(username.getText().toString().trim(), pass.getText().toString().trim());
                 }
@@ -131,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
             loginPreferences.setLaunch(1);
             Intent intent = new Intent(LoginActivity.this, TabLayoutActivity.class);
+            intent.putExtra("fragment id", 0);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Verify your email!!!", Toast.LENGTH_SHORT).show();

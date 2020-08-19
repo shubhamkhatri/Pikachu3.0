@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -93,8 +94,11 @@ public class AddMedicine extends AppCompatActivity implements AdapterView.OnItem
                 } else if (qualityy.isEmpty() || qualityy.compareTo("Choose One") == 0) {
                     Toast.makeText(AddMedicine.this, "Please select unit", Toast.LENGTH_SHORT).show();
                 } else {
+                    name.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    quantity.onEditorAction(EditorInfo.IME_ACTION_DONE);
                     fillDays();
                     updateData();
+
                 }
             }
         });
@@ -130,7 +134,7 @@ public class AddMedicine extends AppCompatActivity implements AdapterView.OnItem
         Hour = hour;
         Minute = minute;
 
-        alarmList = new AlarmList(Name, Hour, Minute, Quantity, Quality, Everyday, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday,1);
+        alarmList = new AlarmList(Name, Hour, Minute, Quantity, Quality, Everyday, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, 1);
         AddData(alarmList);
     }
 
@@ -360,7 +364,7 @@ public class AddMedicine extends AppCompatActivity implements AdapterView.OnItem
                     intent.putExtra("quantity", values.getQuantity());
                     intent.putExtra("quality", values.getQuality());
                     intent.putExtra("id", itemID);
-                   // intent.putExtra("days", days);
+                    // intent.putExtra("days", days);
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), ((itemID * 1000) + y), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -387,7 +391,7 @@ public class AddMedicine extends AppCompatActivity implements AdapterView.OnItem
             }
             finish();
             Intent activity = new Intent(AddMedicine.this, TabLayoutActivity.class);
-            // i.putExtra("fragment id",1);
+            activity.putExtra("fragment id", 2);
             startActivity(activity);
         }
 

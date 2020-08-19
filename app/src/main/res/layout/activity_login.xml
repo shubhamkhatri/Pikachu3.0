@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/login_background">
 
 
     <LinearLayout
@@ -13,13 +14,14 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/login_box">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="18dp">
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -35,7 +37,9 @@
                 android:id="@+id/input_layout_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
 
                 <EditText
                     android:id="@+id/lgEmail"
@@ -43,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="5dp"
                     android:hint="Username"
+                    android:drawableStart="@drawable/username"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,13 +56,16 @@
                 android:id="@+id/input_layout_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 app:passwordToggleEnabled="true">
 
                 <EditText
                     android:id="@+id/lgPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/password"
                     android:drawablePadding="5dp"
                     android:hint="Password"
                     android:inputType="textPassword" />
@@ -68,27 +76,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:text="Login"
-                android:textSize="18sp" />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/button"
+                android:background="@drawable/roundedbutton"/>
 
             <TextView
                 android:id="@+id/forget_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
                 android:text="Forget Password?"
-                android:textSize="20sp" />
+                android:layout_marginTop="8dp"
+                android:textSize="@dimen/normalText" />
 
             <TextView
                 android:id="@+id/sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:text="New User? Sign Up"
-                android:textSize="22sp" />
+                android:layout_marginTop="8dp"
+                android:text="@string/new_user"
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -99,7 +111,9 @@
         android:layout_below="@id/login_linearLayout"
         android:layout_alignParentRight="true"
         android:text="Skip Login >>"
-        android:layout_margin="18dp"
-        android:textSize="22sp"/>
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="-10dp"
+        android:textSize="@dimen/normalText"
+        android:textColor="@android:color/white"/>
 
 </RelativeLayout>

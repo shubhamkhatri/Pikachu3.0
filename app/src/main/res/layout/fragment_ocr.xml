@@ -8,9 +8,7 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#3C8E9699"
-        android:dividerHeight="12dp" />
+        android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_ocr"
@@ -35,7 +33,7 @@
         android:layout_marginRight="18dp"
         android:layout_marginBottom="10dp"
         android:src="@drawable/bar"
-        app:maxImageSize="35dp"
+        app:maxImageSize="50dp"
         app:borderWidth="0dp"
         />
 

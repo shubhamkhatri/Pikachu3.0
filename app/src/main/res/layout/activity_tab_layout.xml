@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".TabLayoutActivity">
 
@@ -14,9 +15,12 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/tablayout_backgroud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        app:tabTextColor="@android:color/white"
+        app:tabSelectedTextColor="@color/tabColor"
+        app:tabTextAppearance="@style/MineCustomTabText" />
 
 </RelativeLayout>

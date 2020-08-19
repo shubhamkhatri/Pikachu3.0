@@ -1,6 +1,7 @@
 package com.example.android.pikachu;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -11,6 +12,7 @@ import android.os.Looper;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -44,18 +46,19 @@ import java.util.Map;
 public class AddDonar extends AppCompatActivity {
 
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
-    private TextView location_address,login;
+    private TextView location_address, login;
     private Button select_location;
     private double latitude, longitude;
     private RadioButton a_button, b_button, o_button, ab_button, negative_button, positive_button;
-    private String blood, symbol, bloodGroup, locationn,Gender;
+    private String blood, symbol, bloodGroup, locationn, Gender;
     private Button save;
     private ResultReceiver resultReceiver;
     private EditText name, age, phn_no, address, city, email, pass, confirmPass;
     private TextInputLayout Password, ConfirmPass;
     private FirebaseAuth firebaseAuth;
-    private boolean male,female;
-    private RadioButton genderMale,genderFemale;
+    private boolean male, female;
+    private RadioButton genderMale, genderFemale;
+    private ProgressDialog progressDialog;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -79,11 +82,12 @@ public class AddDonar extends AppCompatActivity {
         resultReceiver = new AdressResultReceiver(new Handler());
         setId();
         firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddDonar.this,LoginActivity.class));
+                startActivity(new Intent(AddDonar.this, LoginActivity.class));
             }
         });
 
@@ -116,8 +120,7 @@ public class AddDonar extends AppCompatActivity {
                     Toast.makeText(AddDonar.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else if (genderCheck().isEmpty()) {
                     Toast.makeText(AddDonar.this, "Please select Gender", Toast.LENGTH_SHORT).show();
-                }
-                else if (address.getText().toString().trim().isEmpty()) {
+                } else if (address.getText().toString().trim().isEmpty()) {
                     address.setError(getString(R.string.err_msg));
                     Toast.makeText(AddDonar.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else if (city.getText().toString().trim().isEmpty()) {
@@ -129,22 +132,31 @@ public class AddDonar extends AppCompatActivity {
                     Toast.makeText(AddDonar.this, "Please select Blood Group", Toast.LENGTH_SHORT).show();
                 } else if (symbolCheck().isEmpty()) {
                     Toast.makeText(AddDonar.this, "Please select Blood Group", Toast.LENGTH_SHORT).show();
-                }else  if (email.getText().toString().trim().isEmpty()) {
+                } else if (email.getText().toString().trim().isEmpty()) {
                     email.setError(getString(R.string.err_msg));
                     Toast.makeText(AddDonar.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                }else if (pass.getText().toString().trim().isEmpty()) {
+                } else if (pass.getText().toString().trim().isEmpty()) {
                     Password.setError(getString(R.string.err_msg));
                     Toast.makeText(AddDonar.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else if (confirmPass.getText().toString().trim().isEmpty()) {
-                   ConfirmPass.setError(getString(R.string.err_msg));
+                    ConfirmPass.setError(getString(R.string.err_msg));
                     Toast.makeText(AddDonar.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else if (pass.getText().toString().trim().compareTo(confirmPass.getText().toString().trim()) != 0) {
                     ConfirmPass.setError("Password do not match");
-                }else {
+                } else {
+                    name.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    age.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    phn_no.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    address.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    city.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    email.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    pass.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    confirmPass.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    progressDialog.setMessage("SignUp in progress");
+                    progressDialog.show();
+                    progressDialog.setCancelable(false);
                     String user_email = email.getText().toString().trim();
                     String user_password = confirmPass.getText().toString().trim();
-
-
                     firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
@@ -165,36 +177,36 @@ public class AddDonar extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void dataUpdate() {
-            String Name=name.getText().toString().trim();
-            String Age=age.getText().toString().trim();
-            String PhoneNo=phn_no.getText().toString().trim();
-            Gender=genderCheck();
-            String Address=address.getText().toString().trim();
-            String City=city.getText().toString().trim();
-            String Location=locationn;
-            bloodGroup=bloodCheck().concat(symbolCheck());
-            String Email=email.getText().toString().trim();
-            String Passwordd=pass.getText().toString().trim();
+        String Name = name.getText().toString().trim();
+        String Age = age.getText().toString().trim();
+        String PhoneNo = phn_no.getText().toString().trim();
+        Gender = genderCheck();
+        String Address = address.getText().toString().trim();
+        String City = city.getText().toString().trim();
+        String Location = locationn;
+        bloodGroup = bloodCheck().concat(symbolCheck());
+        String Email = email.getText().toString().trim();
+        String Passwordd = pass.getText().toString().trim();
 
         Map<String, Object> donar = new LinkedHashMap<>();
 
-        String lat=String.valueOf(latitude);
-        String lon=String.valueOf(longitude);
-        donar.put("Name",Name);
-        donar.put("Age",Age);
-        donar.put("Phone",PhoneNo);
-        donar.put("Gender",Gender);
-        donar.put("Address",Address);
-        donar.put("City",City);
-        donar.put("Location",Location);
-        donar.put("Latitude",lat);
-        donar.put("Longitude",lon);
-        donar.put("Blood Group",bloodGroup);
-        donar.put("Email",Email);
-        donar.put("Password",Passwordd);
+        String lat = String.valueOf(latitude);
+        String lon = String.valueOf(longitude);
+        donar.put("Name", Name);
+        donar.put("Age", Age);
+        donar.put("Phone", PhoneNo);
+        donar.put("Gender", Gender);
+        donar.put("Address", Address);
+        donar.put("City", City);
+        donar.put("Location", Location);
+        donar.put("Latitude", lat);
+        donar.put("Longitude", lon);
+        donar.put("Blood Group", bloodGroup);
+        donar.put("Email", Email);
+        donar.put("Password", Passwordd);
         LocalDate date = LocalDate.now();
         String d = String.valueOf(date);
-        donar.put("Date",d);
+        donar.put("Date", d);
 
         db.collection("donars").document(Email).set(donar)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -221,7 +233,7 @@ public class AddDonar extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(AddDonar.this, "Successfully Registered, Verification mail sent!", Toast.LENGTH_SHORT).show();
-                        //progressDialog.dismiss();
+                        progressDialog.dismiss();
                         finish();
                         startActivity(new Intent(AddDonar.this, LoginActivity.class));
                     } else {
@@ -246,8 +258,8 @@ public class AddDonar extends AppCompatActivity {
         name = (EditText) findViewById(R.id.donar_name);
         age = (EditText) findViewById(R.id.donar_age);
         phn_no = (EditText) findViewById(R.id.donar_phnNo);
-        genderMale=(RadioButton)findViewById(R.id.donar_male);
-        genderFemale=(RadioButton)findViewById(R.id.donar_female);
+        genderMale = (RadioButton) findViewById(R.id.donar_male);
+        genderFemale = (RadioButton) findViewById(R.id.donar_female);
         address = (EditText) findViewById(R.id.donar_address);
         city = (EditText) findViewById(R.id.donar_city);
         email = (EditText) findViewById(R.id.donar_email);
@@ -257,7 +269,7 @@ public class AddDonar extends AppCompatActivity {
         Password = (TextInputLayout) findViewById(R.id.donar_password_layout);
         ConfirmPass = (TextInputLayout) findViewById(R.id.donar_confirmPass_layout);
 
-        login=(TextView)findViewById(R.id.donar_login);
+        login = (TextView) findViewById(R.id.donar_login);
     }
 
     private void getCurrentLocation() {

@@ -2,7 +2,7 @@ package com.example.android.pikachu;
 
 public class AlarmList {
     private String medicineName, quantity, quality;
-    private int hour, minute, everyday, sunday, monday, tuesday, wednesday, thursday, friday, saturday,state;
+    private int hour, minute, everyday, sunday, monday, tuesday, wednesday, thursday, friday, saturday, state;
 
     AlarmList(String medicineName, int hour, int minute, String quantity, String quality, int everyday,
               int sunday, int monday, int tuesday, int wednesday, int thursday, int friday, int saturday, int state) {
@@ -19,7 +19,7 @@ public class AlarmList {
         this.thursday = thursday;
         this.friday = friday;
         this.saturday = saturday;
-        this.state=state;
+        this.state = state;
     }
 
     public String getMedicineName() {

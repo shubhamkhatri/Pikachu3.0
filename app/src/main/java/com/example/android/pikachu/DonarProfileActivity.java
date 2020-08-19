@@ -21,11 +21,11 @@ import java.util.Locale;
 public class DonarProfileActivity extends AppCompatActivity {
 
     private TextView name, date, age, gender, phnNo, address, city, location, blood, email;
-    private String Name, Date, Age, Gender, PhnNo, Address, City, Location, Blood, Email,Latitude,Longitude;
-    private Button button,mapView;
+    private String Name, Date, Age, Gender, PhnNo, Address, City, Location, Blood, Email, Latitude, Longitude;
+    private Button button, mapView;
     private String Emaill, path;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private double latitude,longitude;
+    private double latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +54,8 @@ public class DonarProfileActivity extends AppCompatActivity {
                             Location = documentSnapshot.getString("Location");
                             Blood = documentSnapshot.getString("Blood Group");
                             Email = documentSnapshot.getString("Email");
-                            Latitude=documentSnapshot.getString("Latitude");
-                            Longitude=documentSnapshot.getString("Longitude");
+                            Latitude = documentSnapshot.getString("Latitude");
+                            Longitude = documentSnapshot.getString("Longitude");
 
                             name.setText(Name);
                             date.setText(Date);
@@ -68,13 +68,13 @@ public class DonarProfileActivity extends AppCompatActivity {
                             blood.setText(Blood);
                             email.setText(Email);
 
-                            latitude=Double.parseDouble(Latitude);
-                            longitude=Double.parseDouble(Longitude);
+                            latitude = Double.parseDouble(Latitude);
+                            longitude = Double.parseDouble(Longitude);
 
                             mapView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f",latitude,longitude);
+                                    String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f", latitude, longitude);
                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                                     startActivity(intent);
                                 }
@@ -85,18 +85,18 @@ public class DonarProfileActivity extends AppCompatActivity {
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Intent intent=new Intent(DonarProfileActivity.this,EditDonarProfile.class);
-                                        intent.putExtra("Name",Name);
-                                        intent.putExtra("Age",Age);
-                                        intent.putExtra("Phone",PhnNo);
-                                        intent.putExtra("Gender",Gender);
-                                        intent.putExtra("Address",Address);
-                                        intent.putExtra("City",City);
-                                        intent.putExtra("Location",Location);
-                                        intent.putExtra("Latitude",Latitude);
-                                        intent.putExtra("Longitude",Longitude);
-                                        intent.putExtra("Blood Group",Blood);
-                                        intent.putExtra("Email",Email);
+                                        Intent intent = new Intent(DonarProfileActivity.this, EditDonarProfile.class);
+                                        intent.putExtra("Name", Name);
+                                        intent.putExtra("Age", Age);
+                                        intent.putExtra("Phone", PhnNo);
+                                        intent.putExtra("Gender", Gender);
+                                        intent.putExtra("Address", Address);
+                                        intent.putExtra("City", City);
+                                        intent.putExtra("Location", Location);
+                                        intent.putExtra("Latitude", Latitude);
+                                        intent.putExtra("Longitude", Longitude);
+                                        intent.putExtra("Blood Group", Blood);
+                                        intent.putExtra("Email", Email);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -137,6 +137,6 @@ public class DonarProfileActivity extends AppCompatActivity {
         blood = (TextView) findViewById(R.id.profile_donar_blood);
         email = (TextView) findViewById(R.id.profile_donar_email);
         button = (Button) findViewById(R.id.profile_donar_button);
-        mapView=(Button)findViewById(R.id.profile_donar_mapView);
+        mapView = (Button) findViewById(R.id.profile_donar_mapView);
     }
 }

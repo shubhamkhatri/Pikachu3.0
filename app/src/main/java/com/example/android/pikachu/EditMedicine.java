@@ -145,28 +145,50 @@ public class EditMedicine extends AppCompatActivity implements AdapterView.OnIte
         name.setText(defaultName);
         if (defaultEveryday == 1) {
             everyday.setChecked(true);
+            everyday.setTextColor(Color.parseColor("#FFFFFF"));
             sunday.setChecked(true);
+            sunday.setTextColor(Color.parseColor("#FFFFFF"));
             monday.setChecked(true);
+            monday.setTextColor(Color.parseColor("#FFFFFF"));
             tuesday.setChecked(true);
+            tuesday.setTextColor(Color.parseColor("#FFFFFF"));
             wednesday.setChecked(true);
+            wednesday.setTextColor(Color.parseColor("#FFFFFF"));
             thursday.setChecked(true);
+            thursday.setTextColor(Color.parseColor("#FFFFFF"));
             friday.setChecked(true);
+            friday.setTextColor(Color.parseColor("#FFFFFF"));
             saturday.setChecked(true);
+            saturday.setTextColor(Color.parseColor("#FFFFFF"));
         } else {
-            if (defaultSunday == 1)
+            if (defaultSunday == 1) {
                 sunday.setChecked(true);
-            if (defaultMonday == 1)
+                sunday.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+            if (defaultMonday == 1) {
                 monday.setChecked(true);
-            if (defaultTuesday == 1)
+                monday.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+            if (defaultTuesday == 1) {
                 tuesday.setChecked(true);
-            if (defaultWednesday == 1)
+                tuesday.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+            if (defaultWednesday == 1) {
                 wednesday.setChecked(true);
-            if (defaultThursday == 1)
+                wednesday.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+            if (defaultThursday == 1) {
                 thursday.setChecked(true);
-            if (defaultFriday == 1)
+                thursday.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+            if (defaultFriday == 1) {
                 friday.setChecked(true);
-            if (defaultSaturday == 1)
+                friday.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+            if (defaultSaturday == 1) {
                 saturday.setChecked(true);
+                saturday.setTextColor(Color.parseColor("#FFFFFF"));
+            }
         }
         hour = defaultHour;
         minute = defaultMinute;
@@ -218,7 +240,7 @@ public class EditMedicine extends AppCompatActivity implements AdapterView.OnIte
         Quality = qualityy;
         Hour = hour;
         Minute = minute;
-        alarmList = new AlarmList(Name, Hour, Minute, Quantity, Quality, Everyday, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday,1);
+        alarmList = new AlarmList(Name, Hour, Minute, Quantity, Quality, Everyday, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, 1);
         mDatabaseHelper.updateName(alarmList, id, nameDefault);
         setNotification(alarmList);
     }
@@ -267,7 +289,7 @@ public class EditMedicine extends AppCompatActivity implements AdapterView.OnIte
             }
             finish();
             Intent activity = new Intent(EditMedicine.this, TabLayoutActivity.class);
-            // i.putExtra("fragment id",1);
+            activity.putExtra("fragment id", 2);
             startActivity(activity);
         }
 

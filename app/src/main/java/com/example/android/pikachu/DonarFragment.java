@@ -36,6 +36,7 @@ public class DonarFragment extends Fragment {
     private LoginPreferences loginPreferences;
     private SkipPreferences skipPreferences;
     private ListView listView;
+    private LoadingDialog loadingDialog;
 
     @Nullable
     @Override
@@ -43,7 +44,7 @@ public class DonarFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_donation, container, false);
         donar.clear();
         loginPreferences = new LoginPreferences(getActivity());
-        skipPreferences=new SkipPreferences(getActivity());
+        skipPreferences = new SkipPreferences(getActivity());
         listView = v.findViewById(R.id.list_donar);
         getData();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -51,7 +52,13 @@ public class DonarFragment extends Fragment {
             FirebaseUser currentUser = firebaseAuth.getCurrentUser();
             UserEmail = currentUser.getEmail();
         }
+        setDialog();
         return v;
+    }
+
+    public void setDialog() {
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoadingDialog();
     }
 
     private void getData() {
@@ -68,11 +75,12 @@ public class DonarFragment extends Fragment {
                                 gender = document.getString("Gender");
                                 email = document.getString("Email");
                                 if (loginPreferences.DonarLaunch() == 1) {
-                                if (email.compareTo(UserEmail) == 0)
-                                    continue;
+                                    if (email.compareTo(UserEmail) == 0)
+                                        continue;
                                 }
                                 donar.add(new donarList(name, blood, city, date, gender, email));
                             }
+                            loadingDialog.dismissDialog();
                             DonarAdapter donarAdapter = new DonarAdapter(getActivity(), donar);
 
                             LayoutInflater inflater = getLayoutInflater();
@@ -108,6 +116,7 @@ public class DonarFragment extends Fragment {
                                 }
                             });
                         } else {
+                            loadingDialog.dismissDialog();
                             Toast.makeText(getActivity(), "Error#121", Toast.LENGTH_SHORT).show();
                             Log.d("DATA FETCH ERROR", "Error getting documents: ", task.getException());
                         }

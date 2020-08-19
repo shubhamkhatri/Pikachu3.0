@@ -57,7 +57,7 @@ public class EditDonarProfile extends AppCompatActivity {
     private RadioButton genderMale, genderFemale;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String Namee, Agee, Phn_noo, Genderr, Addresss, Cityy, Locationn, Latitudee, Longitudee, BloodGroupp;
-    String lat, lon;
+    private String lat, lon;
 
 
     @Override
@@ -89,8 +89,6 @@ public class EditDonarProfile extends AppCompatActivity {
         Latitudee = i.getStringExtra("Latitude");
         Longitudee = i.getStringExtra("Longitude");
         BloodGroupp = i.getStringExtra("Blood Group");
-
-        System.out.println("Email i................................"+UserEmail);
 
         setId();
         setDefault();
@@ -213,9 +211,9 @@ public class EditDonarProfile extends AppCompatActivity {
                         Toast.makeText(EditDonarProfile.this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
                         //progressDialog.dismiss();
                         finish();
-                        Intent i=new Intent(EditDonarProfile.this, DonarProfileActivity.class);
-                        i.putExtra("Email",UserEmail);
-                        i.putExtra("Path","My Profile");
+                        Intent i = new Intent(EditDonarProfile.this, DonarProfileActivity.class);
+                        i.putExtra("Email", UserEmail);
+                        i.putExtra("Path", "My Profile");
                         startActivity(i);
                     }
                 })
@@ -268,8 +266,8 @@ public class EditDonarProfile extends AppCompatActivity {
                             int latestLocationIndex = locationResult.getLocations().size() - 1;
                             latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
                             longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
-                            lat=String.valueOf(latitude);
-                            lon=String.valueOf(longitude);
+                            lat = String.valueOf(latitude);
+                            lon = String.valueOf(longitude);
                             Location location = new Location("providerNA");
                             location.setLatitude(latitude);
                             location.setLongitude(longitude);

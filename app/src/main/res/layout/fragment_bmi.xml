@@ -15,14 +15,14 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             app:cardCornerRadius="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="10dp">
 
 
                 <LinearLayout
@@ -34,7 +34,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_weight="2">
 
                         <EditText
@@ -49,7 +49,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_weight="1">
 
                         <EditText
@@ -65,7 +65,7 @@
                     android:id="@+id/bmi_cm_scale"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_weight="10">
 
                     <EditText
@@ -90,14 +90,14 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             app:cardCornerRadius="8dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
-                android:padding="12dp">
+                android:padding="10dp">
 
                 <EditText
                     android:id="@+id/bmi_weight"
@@ -112,19 +112,19 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             app:cardCornerRadius="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="10dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_weight="1">
 
                     <EditText
@@ -144,14 +144,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:text="CALCULATE" />
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="CALCULATE"
+            android:textSize="@dimen/button"
+            android:textColor="@android:color/white"
+            android:background="@drawable/roundedbutton"/>
 
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             app:cardCornerRadius="8dp">
 
             <LinearLayout
@@ -185,7 +190,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0.0"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/heading" />
 
                 </LinearLayout>
 
@@ -210,7 +215,8 @@
                             android:gravity="center"
                             android:text="Category"
                             android:textAlignment="center"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/heading"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
 
                         <TextView
@@ -218,7 +224,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:textSize="22sp"
+                            android:textSize="@dimen/heading2"
                             android:text="•••"/>
 
                     </LinearLayout>
@@ -236,7 +242,8 @@
                             android:gravity="center"
                             android:text="Difference"
                             android:textAlignment="center"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/heading"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
 
                         <TextView
@@ -244,7 +251,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:textSize="22sp"
+                            android:textSize="@dimen/heading2"
                             android:text="•••"/>
 
                     </LinearLayout>
@@ -275,35 +282,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/severelyUnderweight"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/normalText" />
 
                 <TextView
                     android:id="@+id/bmi_range_U"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/underweight"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/normalText" />
 
                 <TextView
                     android:id="@+id/bmi_range_N"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/normal"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/normalText" />
 
                 <TextView
                     android:id="@+id/bmi_range_OW"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/overweight"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/normalText" />
 
                 <TextView
                     android:id="@+id/bmi_range_O"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/obese"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/normalText" />
 
             </LinearLayout>
 

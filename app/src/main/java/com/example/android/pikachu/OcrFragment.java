@@ -1,5 +1,6 @@
 package com.example.android.pikachu;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -7,10 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,10 +27,10 @@ import java.util.List;
 public class OcrFragment extends Fragment {
 
     public List<String> listt = new ArrayList<>();
-    String check;
-    String categorySet;
-    String getCategorySet;
-    final ArrayList<word> fileList=new ArrayList<word>();
+    private String check;
+    private String categorySet;
+    private String getCategorySet;
+    final ArrayList<word> fileList = new ArrayList<word>();
     private FloatingActionButton add;
     private FloatingActionButton graph;
 
@@ -36,22 +40,22 @@ public class OcrFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_ocr, container, false);
         File root = new File(Environment.getExternalStorageDirectory() + "/" + "PikachuDocument");
 
-        ListDir(root,v);
+        ListDir(root, v);
 
-        graph=v.findViewById(R.id.graph_view);
+        graph = v.findViewById(R.id.graph_view);
         graph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getActivity(),graphActivity.class);
+                Intent i = new Intent(getActivity(), graphActivity.class);
                 startActivity(i);
             }
         });
 
-        add=v.findViewById(R.id.add_ocr);
+        add = v.findViewById(R.id.add_ocr);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getActivity(), OcrCreateActivity.class);
+                Intent i = new Intent(getActivity(), OcrCreateActivity.class);
                 startActivity(i);
             }
         });
@@ -79,17 +83,17 @@ public class OcrFragment extends Fragment {
         return categorySet;
     }
 
-    void ListDir(File f,View v) {
+    void ListDir(File f, View v) {
         File[] files = f.listFiles();
         fileList.clear();
-        if(files!=null) {
+        if (files != null) {
             for (File file : files) {
                 listt.add(file.getPath());
                 getCategorySet = getCheck(file);
                 fileList.add(new word(getCategorySet, file.getName()));
             }
 
-            DocumentAdaptor directoryList = new DocumentAdaptor(getActivity(), fileList, R.color.colorAccent);
+            final DocumentAdaptor directoryList = new DocumentAdaptor(getActivity(), fileList, R.color.colorAccent);
 
             ListView listView = (ListView) v.findViewById(R.id.list);
             listView.setAdapter(directoryList);
@@ -104,6 +108,35 @@ public class OcrFragment extends Fragment {
                                             }
 
             );
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+
+                    builder.setMessage("Do you really want to delete this Job?").setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(final DialogInterface dialogInterface, int i) {
+                                    File file = new File(listt.get(position));
+                                    boolean deleted = file.delete();
+                                    if (deleted) {
+                                        directoryList.remove(directoryList.getItem(position));
+                                        directoryList.notifyDataSetChanged();
+                                    }
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+                    android.app.AlertDialog alert = builder.create();
+                    alert.show();
+                    return true;
+                }
+            });
         }
 
     }

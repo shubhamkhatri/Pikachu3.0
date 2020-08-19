@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class TimerFragment extends Fragment {
 
     private FloatingActionButton add;
-    DatabaseHelper mDatabaseHelper;
+    private DatabaseHelper mDatabaseHelper;
     private String Name, Quality, Quantity;
     private int Hour, Minute;
     private int Everyday = 0, Sunday = 0, Monday = 0, Tuesday = 0, Wednesday = 0, Thursday = 0, Friday = 0, Saturday = 0, State = 0;
@@ -74,7 +74,7 @@ public class TimerFragment extends Fragment {
             Thursday = data.getInt(11);
             Friday = data.getInt(12);
             Saturday = data.getInt(13);
-            State=data.getInt(14);
+            State = data.getInt(14);
 
             listData.add(new AlarmList(Name, Hour, Minute, Quantity, Quality, Everyday, Sunday,
                     Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, State));

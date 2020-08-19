@@ -2,15 +2,15 @@ package com.example.android.pikachu;
 
 public class donarList {
 
-    private String Name, Blood, City, Date,Gender,Email;
+    private String Name, Blood, City, Date, Gender, Email;
 
-    donarList(String defaultName, String defaultBlood, String defaultCity, String defaultDate,String defaultGender,String defaultEmail) {
+    donarList(String defaultName, String defaultBlood, String defaultCity, String defaultDate, String defaultGender, String defaultEmail) {
         Name = defaultName;
         Blood = defaultBlood;
         City = defaultCity;
         Date = defaultDate;
-        Gender=defaultGender;
-        Email=defaultEmail;
+        Gender = defaultGender;
+        Email = defaultEmail;
     }
 
     public String getName() {

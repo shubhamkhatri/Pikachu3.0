@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 KEY_MEDICINE_NAME + " TEXT, " + KEY_HOUR + " INTEGER, " + KEY_MINUTE + " INTEGER, " + KEY_DOSE_QUANTITY + " TEXT, " +
                 KEY_DOSE_QUALITY + " TEXT, " + KEY_EVERYDAY + " INTEGER, " + KEY_SUNDAY + " INTEGER, " + KEY_MONDAY + " INTEGER, " +
                 KEY_TUESDAY + " INTEGER, " + KEY_WEDNESDAY + " INTEGER, " + KEY_THURSDAY + " INTEGER, " + KEY_FRIDAY + " INTEGER, "
-                + KEY_SATURDAY + " INTEGER, " +KEY_STATE+ " INTEGER"+ ");";
+                + KEY_SATURDAY + " INTEGER, " + KEY_STATE + " INTEGER" + ");";
         db.execSQL(createTable);
     }
 
@@ -120,7 +120,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public void deleteName(int id, String name){
+    public void deleteName(int id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_NAME + " WHERE id = '" + id + "'" +
                 " AND " + KEY_MEDICINE_NAME + " = '" + name + "'";
@@ -129,10 +129,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public void updateStateValue(int id,String name,int state){
+    public void updateStateValue(int id, String name, int state) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "UPDATE " + TABLE_NAME + " SET "+KEY_STATE+
-                "="+state+  " WHERE id = '" + id + "'" +
+        String query = "UPDATE " + TABLE_NAME + " SET " + KEY_STATE +
+                "=" + state + " WHERE id = '" + id + "'" +
                 " AND " + KEY_MEDICINE_NAME + " = '" + name + "'";
         db.execSQL(query);
     }

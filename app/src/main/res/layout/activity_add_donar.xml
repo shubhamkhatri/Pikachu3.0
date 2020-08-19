@@ -18,14 +18,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Personal Information" />
+            android:layout_marginBottom="8dp"
+            android:text="Personal Information"
+            android:textSize="@dimen/heading2"
+            android:textColor="@color/heading"
+            android:textStyle="bold"/>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="8dp">
 
             <EditText
                 android:id="@+id/donar_name"
@@ -37,7 +40,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="8dp">
 
             <EditText
                 android:id="@+id/donar_age"
@@ -50,7 +53,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="8dp">
 
             <EditText
                 android:id="@+id/donar_phnNo"
@@ -65,7 +68,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
             android:text="Gender"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"/>
 
         <RadioGroup
             android:id="@+id/donar_gender"
@@ -95,7 +99,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="8dp">
 
             <EditText
                 android:id="@+id/donar_address"
@@ -108,7 +112,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="8dp">
 
             <EditText
                 android:id="@+id/donar_city"
@@ -120,8 +124,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Location of donation" />
+            android:layout_marginBottom="8dp"
+            android:text="Location of donation"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/donar_location_address"
@@ -134,21 +140,26 @@
             android:id="@+id/donar_location_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Select" />
+            android:layout_marginBottom="8dp"
+            android:text="Select"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button"
+            android:background="@drawable/roundedbutton" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Blood Type" />
+            android:layout_marginBottom="8dp"
+            android:text="Blood Type"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"/>
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -210,7 +221,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -244,7 +255,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="8dp">
 
             <EditText
                 android:id="@+id/donar_email"
@@ -259,7 +270,7 @@
             android:id="@+id/donar_password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             app:passwordToggleEnabled="true">
 
             <EditText
@@ -274,7 +285,7 @@
             android:id="@+id/donar_confirmPass_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             app:passwordToggleEnabled="true">
 
             <EditText
@@ -289,7 +300,10 @@
             android:id="@+id/donar_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="save" />
+            android:text="save"
+            android:textSize="@dimen/button"
+            android:textColor="@android:color/white"
+            android:background="@drawable/roundedbutton"/>
 
         <TextView
             android:id="@+id/donar_login"
@@ -297,7 +311,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:text="Already have an account? Login"
+            android:text="@string/already_user"
             android:textSize="18sp" />
 
     </LinearLayout>

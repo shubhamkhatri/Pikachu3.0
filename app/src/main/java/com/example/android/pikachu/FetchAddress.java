@@ -27,26 +27,26 @@ public class FetchAddress extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        if(intent!=null){
-            String errorMessage="";
-            resultReceiver=intent.getParcelableExtra(constants.RECEIVER);
-            Location location=intent.getParcelableExtra(constants.LOCATION_DATA_EXTRA);
-            if(location==null){
+        if (intent != null) {
+            String errorMessage = "";
+            resultReceiver = intent.getParcelableExtra(constants.RECEIVER);
+            Location location = intent.getParcelableExtra(constants.LOCATION_DATA_EXTRA);
+            if (location == null) {
                 return;
             }
-            Geocoder geocoder=new Geocoder(this,Locale.getDefault());
-            List<Address> addresses=null;
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = null;
             try {
-                addresses=geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             } catch (Exception e) {
-              errorMessage=e.getMessage();
+                errorMessage = e.getMessage();
             }
-            if(addresses==null ||addresses.isEmpty()){
-                deliverResultToReceiver(constants.FAILURE_RESULT,errorMessage);
-            }else{
-                Address address=addresses.get(0);
-                ArrayList<String> addressFragments=new ArrayList<>();
-                for(int i=0;i<=address.getMaxAddressLineIndex();i++){
+            if (addresses == null || addresses.isEmpty()) {
+                deliverResultToReceiver(constants.FAILURE_RESULT, errorMessage);
+            } else {
+                Address address = addresses.get(0);
+                ArrayList<String> addressFragments = new ArrayList<>();
+                for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                     addressFragments.add(address.getAddressLine(i));
                 }
                 deliverResultToReceiver(constants.SUCCESS_RESULT, TextUtils.join(
@@ -56,9 +56,9 @@ public class FetchAddress extends IntentService {
         }
     }
 
-    public void deliverResultToReceiver(int resultCode,String addressMessage){
-        Bundle bundle=new Bundle();
-        bundle.putString(constants.RESULT_DATA_KEY,addressMessage);
-        resultReceiver.send(resultCode,bundle);
+    public void deliverResultToReceiver(int resultCode, String addressMessage) {
+        Bundle bundle = new Bundle();
+        bundle.putString(constants.RESULT_DATA_KEY, addressMessage);
+        resultReceiver.send(resultCode, bundle);
     }
 }

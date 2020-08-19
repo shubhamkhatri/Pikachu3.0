@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -72,6 +73,11 @@ public class BmiFragment extends Fragment implements AdapterView.OnItemSelectedL
                     Toast.makeText(getActivity(), "Age should be more than 18 years", Toast.LENGTH_SHORT).show();
                 } else
                     calculateBmi();
+                age.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                feet.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                inch.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                cm.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                weight.onEditorAction(EditorInfo.IME_ACTION_DONE);
 
             }
         });
@@ -96,7 +102,7 @@ public class BmiFragment extends Fragment implements AdapterView.OnItemSelectedL
         overweight = (TextView) view.findViewById(R.id.bmi_range_OW);
         obese = (TextView) view.findViewById(R.id.bmi_range_O);
         bmi = (TextView) view.findViewById(R.id.bmi_value);
-        difference=(TextView)view.findViewById(R.id.bmi_diff_text);
+        difference = (TextView) view.findViewById(R.id.bmi_diff_text);
     }
 
     @Override
@@ -168,7 +174,7 @@ public class BmiFragment extends Fragment implements AdapterView.OnItemSelectedL
     }
 
     private void setRange(double heightt, double value) {
-        double diff=0.0;
+        double diff = 0.0;
         range.setVisibility(View.VISIBLE);
         wt1 = (int) Math.ceil(15.9 * heightt * heightt);
         wt2 = (int) Math.ceil(18.4 * heightt * heightt);
@@ -182,11 +188,13 @@ public class BmiFragment extends Fragment implements AdapterView.OnItemSelectedL
         obese.setText("Obese: > " + wt4);
 
         if (value < wt2)
-            diff = value-wt2;
+            diff = value - wt2;
         else if (value >= wt3)
-            diff = value-(wt3 - 1);
+            diff = value - (wt3 - 1);
         else
             diff = 0.0;
-        difference.setText(String.valueOf(diff));
+
+        double d = Math.round(diff * 100);
+        difference.setText(String.valueOf(d / 100));
     }
 }

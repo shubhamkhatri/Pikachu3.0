@@ -2,4 +2,7 @@
     <string name="app_name">Pikachu</string>
 
     <string name="err_msg">Required!</string>
+    <string name="new_user">New User? <font color='#D32F2F'>SignUp</font></string>
+    <string name="already_user">Already have an account? <font color='#D32F2F'>Login</font></string>
+
 </resources>

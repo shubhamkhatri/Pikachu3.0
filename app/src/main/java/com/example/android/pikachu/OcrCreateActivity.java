@@ -40,19 +40,21 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Locale;
 
 import com.itextpdf.text.Document;
+
 import java.text.SimpleDateFormat;
 
 
 public class OcrCreateActivity extends AppCompatActivity {
 
-    EditText mResltEt;
-    ImageView mPreviewIv;
-    Button mSaveBtn;
-String category;
+    private EditText mResltEt;
+    private ImageView mPreviewIv;
+    private Button mSaveBtn;
+    private String category;
 
     public static final int CAMERA_REQUEST_CODE = 200;
     public static final int STORAGE_REQUEST_CODE = 400;
@@ -69,7 +71,7 @@ String category;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_create);
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setSubtitle("Click camera button to Scan ->");
 
         mResltEt = findViewById(R.id.resultEt);
@@ -80,22 +82,61 @@ String category;
             @Override
             public void onClick(View v) {
                 //we need to handle runtime permission for devices with marshmallow and above
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                     //system OS >= Marshmallow(6.0), check if permission is enabled or not
                     if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                            PackageManager.PERMISSION_DENIED){
+                            PackageManager.PERMISSION_DENIED) {
                         //permission was not granted, request it
                         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
                         requestPermissions(permissions, STORAGE_CODE);
-                    }
-                    else {
+                    } else {
                         //permission already granted, call save pdf method
-                        savePdf();
+                        if (mResltEt.getText().toString().trim().isEmpty()) {
+                            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OcrCreateActivity.this);
+
+                            builder.setMessage("There is no text to save in PDF file, Do you still want to create file?").setCancelable(false)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(final DialogInterface dialogInterface, int i) {
+                                            savePdf();
+                                        }
+                                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+
+                            android.app.AlertDialog alert = builder.create();
+                            alert.show();
+                        }
+                        //system OS < Marshmallow, call save pdf method
+                        else
+                            savePdf();
                     }
-                }
-                else {
+                } else {
+                    if (mResltEt.getText().toString().trim().isEmpty()) {
+                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OcrCreateActivity.this);
+
+                        builder.setMessage("There is no text to save in PDF file, Do you still want to create file?").setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(final DialogInterface dialogInterface, int i) {
+                                        savePdf();
+                                    }
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+
+                        android.app.AlertDialog alert = builder.create();
+                        alert.show();
+                    }
                     //system OS < Marshmallow, call save pdf method
-                    savePdf();
+                    else
+                        savePdf();
                 }
             }
         });
@@ -233,124 +274,111 @@ String category;
             break;
         }
     }
-        @Override
-        protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
-            super.onActivityResult(requestCode, resultCode, data);
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
+                CropImage.activity(data.getData())
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(this);
+            }
+            if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+                CropImage.activity(image_uri)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(this);
+            }
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                if (requestCode == IMAGE_PICK_GALLERY_CODE) {
-                    CropImage.activity(data.getData())
-                            .setGuidelines(CropImageView.Guidelines.ON)
-                            .start(this);
-                }
-                if (requestCode == IMAGE_PICK_CAMERA_CODE) {
-                    CropImage.activity(image_uri)
-                            .setGuidelines(CropImageView.Guidelines.ON)
-                            .start(this);
-                }
-            }
-            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                if (resultCode == RESULT_OK) {
-                    Uri resultUri = result.getUri();
-                    mPreviewIv.setImageURI(resultUri);
+                Uri resultUri = result.getUri();
+                mPreviewIv.setImageURI(resultUri);
 
-                    BitmapDrawable bitmapDrawable = (BitmapDrawable) mPreviewIv.getDrawable();
-                    Bitmap bitmap = bitmapDrawable.getBitmap();
-                    TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) mPreviewIv.getDrawable();
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+                TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
 
-                    if (!recognizer.isOperational()) {
-                        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-                        SparseArray<TextBlock> items = recognizer.detect(frame);
-                        StringBuilder sb = new StringBuilder();
+                if (!recognizer.isOperational()) {
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                } else {
+                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                    SparseArray<TextBlock> items = recognizer.detect(frame);
+                    StringBuilder sb = new StringBuilder();
 
-                        for (int i = 0; i < items.size(); i++) {
-                            TextBlock myItem = items.valueAt(i);
-                            sb.append(myItem.getValue());
-                            sb.append("\n");
-                        }
-                        mResltEt.setText(sb.toString().trim());
+                    for (int i = 0; i < items.size(); i++) {
+                        TextBlock myItem = items.valueAt(i);
+                        sb.append(myItem.getValue());
+                        sb.append("\n");
                     }
-                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    Exception error = result.getError();
-                    Toast.makeText(this, "" + error, Toast.LENGTH_SHORT).show();
+                    mResltEt.setText(sb.toString().trim());
                 }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+                Toast.makeText(this, "" + error, Toast.LENGTH_SHORT).show();
             }
         }
+    }
 
-    void setCategory()
-    {
-        EditText textView=(EditText) findViewById(R.id.resultEt);
+    public void setCategory() {
+        EditText textView = (EditText) findViewById(R.id.resultEt);
 
-        if(textView.getText().toString().contains("Liver function tests")||
-                textView.getText().toString().contains("Liver")||
-                textView.getText().toString().contains("LFT")||
+        if (textView.getText().toString().contains("Liver function tests") ||
+                textView.getText().toString().contains("Liver") ||
+                textView.getText().toString().contains("LFT") ||
                 textView.getText().toString().contains("LIVER")
-        ||textView.getText().toString().contains("liver")){
-            category="Liver Test";
-        }
-
-        else if(textView.getText().toString().contains("RFT")
-        ||textView.getText().toString().contains("Renal Function Test")||
-                textView.getText().toString().contains("KIDNEY")||
-                textView.getText().toString().contains("kidney")||
+                || textView.getText().toString().contains("liver")) {
+            category = "Liver Test";
+        } else if (textView.getText().toString().contains("RFT")
+                || textView.getText().toString().contains("Renal Function Test") ||
+                textView.getText().toString().contains("KIDNEY") ||
+                textView.getText().toString().contains("kidney") ||
                 textView.getText().toString().contains("rft")
-        ){
-            category="Kidney Test";
-        }
-
-        else if(textView.getText().toString().contains("Blood Sugar")
-                ||textView.getText().toString().contains("Sugar")||
-                textView.getText().toString().contains("SUGAR")||
-                textView.getText().toString().contains("sugar")||
+        ) {
+            category = "Kidney Test";
+        } else if (textView.getText().toString().contains("Blood Sugar")
+                || textView.getText().toString().contains("Sugar") ||
+                textView.getText().toString().contains("SUGAR") ||
+                textView.getText().toString().contains("sugar") ||
                 textView.getText().toString().contains("Diabetes")
-        ){
-            category="Sugar Test";
-        }
-
-        else if(textView.getText().toString().contains("thyroid stimulating hormone test")
-                ||textView.getText().toString().contains("THYROID STIMULATING HORMONE TEST")||
-                textView.getText().toString().contains("Thyroid Stimulating Hormone Test")||
-                textView.getText().toString().contains("TSH")||
-                textView.getText().toString().contains("T3")||
-        textView.getText().toString().contains("triiodothyronine")||
-                textView.getText().toString().contains("Triiodothyronine")||
-                textView.getText().toString().contains("thyroxine")||
-                textView.getText().toString().contains("Thyroxine")||
-                textView.getText().toString().contains("Thyroid")||
+        ) {
+            category = "Sugar Test";
+        } else if (textView.getText().toString().contains("thyroid stimulating hormone test")
+                || textView.getText().toString().contains("THYROID STIMULATING HORMONE TEST") ||
+                textView.getText().toString().contains("Thyroid Stimulating Hormone Test") ||
+                textView.getText().toString().contains("TSH") ||
+                textView.getText().toString().contains("T3") ||
+                textView.getText().toString().contains("triiodothyronine") ||
+                textView.getText().toString().contains("Triiodothyronine") ||
+                textView.getText().toString().contains("thyroxine") ||
+                textView.getText().toString().contains("Thyroxine") ||
+                textView.getText().toString().contains("Thyroid") ||
                 textView.getText().toString().contains("thyroid")
-        ){
-            category="Thyroid Test";
-        }
-
-
-        else if(textView.getText().toString().contains("billirubene")
-                ||textView.getText().toString().contains("Billirubene")||
-                textView.getText().toString().contains("BILLIRUBENE")||
-                textView.getText().toString().contains("JAUNDICE")||
-                textView.getText().toString().contains("Jaundice")||
+        ) {
+            category = "Thyroid Test";
+        } else if (textView.getText().toString().contains("billirubene")
+                || textView.getText().toString().contains("Billirubene") ||
+                textView.getText().toString().contains("BILLIRUBENE") ||
+                textView.getText().toString().contains("JAUNDICE") ||
+                textView.getText().toString().contains("Jaundice") ||
                 textView.getText().toString().contains("jaundice")
-        ){
-            category="Jaundice Test";
-        }
-
-        else if(textView.getText().toString().contains("Hiv positive")
-                ||textView.getText().toString().contains("Hiv Positive")||
-                textView.getText().toString().contains("HIV Positive")||
-                textView.getText().toString().contains("HIV positive")||
-                textView.getText().toString().contains("HIV POSITIVE")||
-                textView.getText().toString().contains("HIV+")||
-                textView.getText().toString().contains("Hiv+")||
-                textView.getText().toString().contains("hiv+")||
-                textView.getText().toString().contains("HIV")||
+        ) {
+            category = "Jaundice Test";
+        } else if (textView.getText().toString().contains("Hiv positive")
+                || textView.getText().toString().contains("Hiv Positive") ||
+                textView.getText().toString().contains("HIV Positive") ||
+                textView.getText().toString().contains("HIV positive") ||
+                textView.getText().toString().contains("HIV POSITIVE") ||
+                textView.getText().toString().contains("HIV+") ||
+                textView.getText().toString().contains("Hiv+") ||
+                textView.getText().toString().contains("hiv+") ||
+                textView.getText().toString().contains("HIV") ||
                 textView.getText().toString().contains("Hiv")
-        ){
-            category="HIV Test";
-        }
-
-        else  category="Common Test";
-        }
+        ) {
+            category = "HIV Test";
+        } else category = "Common Test";
+    }
 
 
     private void savePdf() {
@@ -360,7 +388,7 @@ String category;
         //pdf file name
         String mFileName = new SimpleDateFormat("yyyyMMdd_HHmm",
                 Locale.getDefault()).format(System.currentTimeMillis());
-        mFileName=mFileName.concat(category);
+        mFileName = mFileName.concat(category);
         //pdf file path
         String mFilePath = Environment.getExternalStorageDirectory() + "/" + "PikachuDocument" + "/" + mFileName + ".pdf";
 
@@ -370,7 +398,7 @@ String category;
             //open the document for writing
             mDoc.open();
 
-            Rectangle rect= new Rectangle(36,108);
+            Rectangle rect = new Rectangle(36, 108);
             rect.enableBorderSide(1);
             rect.enableBorderSide(2);
             rect.enableBorderSide(4);
@@ -392,9 +420,12 @@ String category;
             //close the document
             mDoc.close();
             //show message that file is saved, it will show file name and file path too
-            Toast.makeText(this, mFileName +".pdf\nis saved to\n"+ mFilePath, Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e){
+            Toast.makeText(this, mFileName + ".pdf\nis saved to\n" + mFilePath, Toast.LENGTH_SHORT).show();
+            Intent activity = new Intent(OcrCreateActivity.this, TabLayoutActivity.class);
+            activity.putExtra("fragment id", 0);
+            startActivity(activity);
+            finish();
+        } catch (Exception e) {
             //if any thing goes wrong causing exception, get and show exception message
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }

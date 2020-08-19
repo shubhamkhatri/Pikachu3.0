@@ -8,7 +8,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
         app:cardCornerRadius="6dp"
         app:cardPreventCornerOverlap="true">
 
@@ -27,7 +29,8 @@
                     android:id="@+id/name_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name" />
+                    android:text="Name"
+                    android:textSize="@dimen/smallText"/>
 
                 <TextView
                     android:id="@+id/list_donar_date"
@@ -37,7 +40,9 @@
                     android:layout_marginTop="18dp"
                     android:layout_marginRight="5dp"
                     android:text="22.03.2017"
-                    android:textSize="16sp" />
+                    android:textStyle="bold"
+                    android:textSize="@dimen/smallText"
+                    android:textColor="@color/colorPrimaryDark"/>
 
 
                 <TextView
@@ -45,15 +50,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/name_text"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="4dp"
                     android:text="Shubham"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/normalText"
+                    android:textColor="@color/heading_text"/>
             </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Blood Group" />
+                android:text="Blood Group"
+                android:textSize="@dimen/smallText"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -63,20 +70,22 @@
                 android:id="@+id/list_donar_blood"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="4dp"
                 android:text="AB+"
-                android:textSize="20sp" />
+                android:textSize="@dimen/normalText"
+                android:textColor="@color/heading_text"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="City" 
-                android:layout_below="@id/list_donar_blood"/>
+                android:layout_below="@id/list_donar_blood"
+                android:textSize="@dimen/smallText" />
             
                 <ImageView
                     android:id="@+id/list_donar_gender"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:scaleType="centerCrop"
                     android:layout_marginRight="10dp"
@@ -88,7 +97,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Delhi"
-                android:textSize="20sp" />
+                android:textSize="@dimen/normalText"
+                android:textColor="@color/heading_text"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

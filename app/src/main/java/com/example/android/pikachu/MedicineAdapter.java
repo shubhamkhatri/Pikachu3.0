@@ -34,10 +34,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MedicineAdapter extends ArrayAdapter<AlarmList> {
-    String Day = "";
+    private String Day = "";
     private ImageView delete;
     private LinearLayout item;
-    DatabaseHelper mDatabaseHelper;
+    private DatabaseHelper mDatabaseHelper;
     private Switch state;
     private boolean dayss[] = new boolean[7];
 
@@ -173,6 +173,7 @@ public class MedicineAdapter extends ArrayAdapter<AlarmList> {
                                 mDatabaseHelper.deleteName(finalItemID, currentList.getMedicineName());
                                 ((Activity) getContext()).finish();
                                 Intent in = new Intent(getContext(), TabLayoutActivity.class);
+                                in.putExtra("fragment id", 2);
                                 getContext().startActivity(in);
                                 notifyDataSetChanged();
                             }
