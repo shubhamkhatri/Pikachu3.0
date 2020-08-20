@@ -165,6 +165,7 @@ public class AddDonar extends AppCompatActivity {
                                 Toast.makeText(AddDonar.this, "Username and Password saved", Toast.LENGTH_SHORT).show();
                                 dataUpdate();
                             } else {
+                                progressDialog.dismiss();
                                 Toast.makeText(AddDonar.this, "Error!!!", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -218,6 +219,7 @@ public class AddDonar extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
                         Toast.makeText(AddDonar.this, "Error!", Toast.LENGTH_SHORT).show();
                         Log.d("TAG Database Error", e.toString());
                     }
@@ -237,6 +239,7 @@ public class AddDonar extends AppCompatActivity {
                         finish();
                         startActivity(new Intent(AddDonar.this, LoginActivity.class));
                     } else {
+                        progressDialog.dismiss();
                         Toast.makeText(AddDonar.this, "Error Sending Mail!", Toast.LENGTH_SHORT).show();
                     }
                 }
