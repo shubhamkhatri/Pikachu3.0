@@ -54,6 +54,7 @@ public class EditDonarProfile extends AppCompatActivity {
     private EditText name, age, phn_no, address, city;
     private FirebaseAuth firebaseAuth;
     private boolean male, female;
+    private LoadingDialog loadingDialog;
     private RadioButton genderMale, genderFemale;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String Namee, Agee, Phn_noo, Genderr, Addresss, Cityy, Locationn, Latitudee, Longitudee, BloodGroupp;
@@ -137,10 +138,15 @@ public class EditDonarProfile extends AppCompatActivity {
                     Toast.makeText(EditDonarProfile.this, "Please select Blood Group", Toast.LENGTH_SHORT).show();
                 } else {
                     dataUpdate();
+                    setDialog();
                 }
             }
         });
 
+    }
+    public void setDialog() {
+        loadingDialog = new LoadingDialog(EditDonarProfile.this);
+        loadingDialog.startLoadingDialog();
     }
 
     private void setDefault() {
@@ -209,7 +215,7 @@ public class EditDonarProfile extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(EditDonarProfile.this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
-                        //progressDialog.dismiss();
+                        loadingDialog.dismissDialog();
                         finish();
                         Intent i = new Intent(EditDonarProfile.this, DonarProfileActivity.class);
                         i.putExtra("Email", UserEmail);
@@ -220,6 +226,7 @@ public class EditDonarProfile extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        loadingDialog.dismissDialog();
                         Toast.makeText(EditDonarProfile.this, "Error!", Toast.LENGTH_SHORT).show();
                         Log.d("TAG Database Error", e.toString());
                     }
