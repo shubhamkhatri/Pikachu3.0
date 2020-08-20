@@ -26,12 +26,14 @@ public class DonarProfileActivity extends AppCompatActivity {
     private String Emaill, path;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private double latitude, longitude;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donar_profile);
         setId();
+        setDialog();
         Intent i = getIntent();
         Emaill = i.getStringExtra("Email");
         path = i.getStringExtra("Path");
@@ -112,17 +114,24 @@ public class DonarProfileActivity extends AppCompatActivity {
                                     }
                                 });
                             }
-
-                        } else
+                            loadingDialog.dismissDialog();
+                        } else{
+                            loadingDialog.dismissDialog();
                             Toast.makeText(DonarProfileActivity.this, "User does not Exists", Toast.LENGTH_SHORT).show();
-                    }
+                    }}
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                loadingDialog.dismissDialog();
                 Toast.makeText(DonarProfileActivity.this, "Error!", Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    public void setDialog() {
+        loadingDialog = new LoadingDialog(DonarProfileActivity.this);
+        loadingDialog.startLoadingDialog();
     }
 
     private void setId() {

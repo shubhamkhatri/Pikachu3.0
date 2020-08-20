@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -52,9 +53,9 @@ public class EditDonarProfile extends AppCompatActivity {
     private Button save;
     private ResultReceiver resultReceiver;
     private EditText name, age, phn_no, address, city;
-    private FirebaseAuth firebaseAuth;
     private boolean male, female;
     private LoadingDialog loadingDialog;
+    private ProgressDialog progressDialog;
     private RadioButton genderMale, genderFemale;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String Namee, Agee, Phn_noo, Genderr, Addresss, Cityy, Locationn, Latitudee, Longitudee, BloodGroupp;
@@ -77,6 +78,8 @@ public class EditDonarProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_donar_profile);
+
+        progressDialog = new ProgressDialog(this);
         resultReceiver = new AdressResultReceiverEdit(new Handler());
         Intent i = getIntent();
         UserEmail = i.getStringExtra("Email");
@@ -137,8 +140,10 @@ public class EditDonarProfile extends AppCompatActivity {
                 } else if (symbolCheck().isEmpty()) {
                     Toast.makeText(EditDonarProfile.this, "Please select Blood Group", Toast.LENGTH_SHORT).show();
                 } else {
+                    progressDialog.setMessage("Update in progress");
+                    progressDialog.show();
+                    progressDialog.setCancelable(false);
                     dataUpdate();
-                    setDialog();
                 }
             }
         });
@@ -215,7 +220,7 @@ public class EditDonarProfile extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(EditDonarProfile.this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
-                        loadingDialog.dismissDialog();
+                        progressDialog.dismiss();
                         finish();
                         Intent i = new Intent(EditDonarProfile.this, DonarProfileActivity.class);
                         i.putExtra("Email", UserEmail);
@@ -226,7 +231,7 @@ public class EditDonarProfile extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        loadingDialog.dismissDialog();
+                        progressDialog.dismiss();
                         Toast.makeText(EditDonarProfile.this, "Error!", Toast.LENGTH_SHORT).show();
                         Log.d("TAG Database Error", e.toString());
                     }
@@ -257,6 +262,7 @@ public class EditDonarProfile extends AppCompatActivity {
     }
 
     private void getCurrentLocation() {
+        setDialog();
         final LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(3000);
@@ -337,7 +343,9 @@ public class EditDonarProfile extends AppCompatActivity {
             if (resultCode == constants.SUCCESS_RESULT) {
                 locationn = resultData.getString(constants.RESULT_DATA_KEY);
                 location_address.setText(locationn);
+                loadingDialog.dismissDialog();
             } else {
+                loadingDialog.dismissDialog();
                 Toast.makeText(EditDonarProfile.this, resultData.getString(constants.RESULT_DATA_KEY), Toast.LENGTH_SHORT).show();
             }
 

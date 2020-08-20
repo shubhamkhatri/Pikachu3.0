@@ -59,6 +59,7 @@ public class AddDonar extends AppCompatActivity {
     private boolean male, female;
     private RadioButton genderMale, genderFemale;
     private ProgressDialog progressDialog;
+    private LoadingDialog loadingDialog;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -72,6 +73,11 @@ public class AddDonar extends AppCompatActivity {
                 Toast.makeText(AddDonar.this, "Location Permission Denied!!", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void setDialog() {
+        loadingDialog = new LoadingDialog(AddDonar.this);
+        loadingDialog.startLoadingDialog();
     }
 
     @Override
@@ -276,6 +282,7 @@ public class AddDonar extends AppCompatActivity {
     }
 
     private void getCurrentLocation() {
+        setDialog();
         final LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(3000);
@@ -354,7 +361,9 @@ public class AddDonar extends AppCompatActivity {
             if (resultCode == constants.SUCCESS_RESULT) {
                 locationn = resultData.getString(constants.RESULT_DATA_KEY);
                 location_address.setText(locationn);
+                loadingDialog.dismissDialog();
             } else {
+                loadingDialog.dismissDialog();
                 Toast.makeText(AddDonar.this, resultData.getString(constants.RESULT_DATA_KEY), Toast.LENGTH_SHORT).show();
             }
 
