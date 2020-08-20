@@ -51,8 +51,8 @@ public class DonarFragment extends Fragment {
     private LoadingDialog loadingDialog;
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     private double latitude, longitude;
-    Boolean nearByFlag = false;
-    CheckBox nearBy;
+    private Boolean nearByFlag = false;
+    private CheckBox nearBy;
     private double latitude2, longitude2;
 
     @Override

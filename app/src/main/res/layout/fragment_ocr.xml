@@ -27,21 +27,20 @@
         android:id="@+id/graph_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_above="@id/add_ocr"
+        android:layout_alignParentRight="true"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="18dp"
         android:layout_marginBottom="10dp"
         android:src="@drawable/bar"
-        app:maxImageSize="50dp"
         app:borderWidth="0dp"
-        />
+        app:maxImageSize="50dp" />
 
     <TextView
         android:id="@+id/no_reports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Medicine Reports yet"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:text="No Medicine Reports yet" />
 
 </RelativeLayout>

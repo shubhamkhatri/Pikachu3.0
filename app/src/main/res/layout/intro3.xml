@@ -22,18 +22,18 @@
         android:layout_marginTop="12dp"
         android:fontFamily="serif-monospace"
         android:text="MEDICINE REMINDER"
+        android:textColor="@color/heading"
         android:textSize="@dimen/heading"
-        android:textStyle="bold"
-        android:textColor="@color/heading"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/text_description1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/welcome"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
         android:text="Often forget to take your medicine on time? Don't worry just let Pikachu remind you next time."
         android:textAlignment="center"
         android:textSize="@dimen/normalText" />

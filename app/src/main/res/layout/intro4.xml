@@ -22,17 +22,17 @@
         android:layout_marginTop="12dp"
         android:fontFamily="serif-monospace"
         android:text="BMI CALCULATOR"
+        android:textColor="@color/heading"
         android:textSize="@dimen/heading"
-        android:textStyle="bold"
-        android:textColor="@color/heading"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/text_description1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/welcome"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="12dp"
         android:text="Wanna be fit? Just check your Body Mass Index with Pikachu with weight and height."

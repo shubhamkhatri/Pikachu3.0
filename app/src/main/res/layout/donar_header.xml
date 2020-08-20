@@ -22,8 +22,8 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="18dp"
-                android:layout_marginRight="4dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="4dp"
                 android:layout_marginBottom="5dp"
                 android:src="@drawable/blood" />
 
@@ -32,22 +32,23 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/colorPrimary" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="16dp"
-                android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="My Profile"
-                android:textSize="@dimen/normalText"
-                android:textColor="@color/heading_text"
-                android:textStyle="bold"/>
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="My Profile"
+                    android:textColor="@color/heading_text"
+                    android:textSize="@dimen/normalText"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -64,36 +65,37 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:background="@color/colorAccent"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:text="AVAILABLE BLOOD DONARS"
         android:textColor="@android:color/white"
-        android:layout_marginBottom="8dp"
         android:textSize="@dimen/ultraSmallText" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end">
-    <CheckBox
-        android:id="@+id/donar_nearMe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Near Me"
-        android:layout_marginRight="10dp"/>
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/donar_nearMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Near Me" />
 
         <Button
             android:id="@+id/donar_apply"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="Find"
-            android:textSize="@dimen/button"
-            android:textColor="@android:color/white"
+            android:layout_marginRight="8dp"
             android:background="@drawable/roundedbutton"
-            android:layout_marginRight="8dp"/>
+            android:text="Find"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button" />
 
     </LinearLayout>
 </LinearLayout>

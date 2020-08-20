@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:background="@drawable/login_background">
+    android:background="@drawable/login_background"
+    tools:context=".LoginActivity">
 
 
     <LinearLayout
@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:orientation="vertical"
-        android:background="@drawable/login_box">
+        android:background="@drawable/login_box"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,17 +37,17 @@
                 android:id="@+id/input_layout_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp">
 
                 <EditText
                     android:id="@+id/lgEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/username"
                     android:drawablePadding="5dp"
                     android:hint="Username"
-                    android:drawableStart="@drawable/username"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,8 +56,8 @@
                 android:id="@+id/input_layout_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 app:passwordToggleEnabled="true">
 
@@ -76,21 +76,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
+                android:background="@drawable/roundedbutton"
                 android:text="Login"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/button"
-                android:background="@drawable/roundedbutton"/>
+                android:textSize="@dimen/button" />
 
             <TextView
                 android:id="@+id/forget_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Forget Password?"
                 android:layout_marginTop="8dp"
+                android:text="Forget Password?"
+                android:textColor="@color/heading_text"
                 android:textSize="@dimen/normalText" />
 
             <TextView
@@ -110,10 +111,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/login_linearLayout"
         android:layout_alignParentRight="true"
-        android:text="Skip Login >>"
-        android:layout_marginRight="18dp"
         android:layout_marginTop="-10dp"
-        android:textSize="@dimen/normalText"
-        android:textColor="@android:color/white"/>
+        android:layout_marginRight="18dp"
+        android:text="Skip Login >>"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/normalText" />
 
 </RelativeLayout>

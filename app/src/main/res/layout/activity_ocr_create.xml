@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,17 +8,15 @@
     android:gravity="center_horizontal"
     tools:context=".OcrCreateActivity">
 
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
             <androidx.cardview.widget.CardView
 
@@ -38,38 +35,38 @@
                     android:paddingBottom="5dp">
 
                     <TextView
-                        android:text="Result"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
                         android:paddingRight="5dp"
-                        android:textColor="@color/colorPrimary"/>
+                        android:text="Result"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20sp" />
 
                     <EditText
+                        android:id="@+id/resultEt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/resultEt"
                         android:autoLink="all"
-                        android:padding="5dp"
-                        android:textColor="#000"
                         android:background="@null"
-                       />
+                        android:padding="5dp"
+                        android:textColor="#000" />
 
                     <Button
                         android:id="@+id/saveBtn"
-                        android:text="Save PDF"
-                        android:background="@drawable/ocr_save_button"
-                        android:gravity="center"
-                        android:drawablePadding="5dp"
                         style="@style/Base.Widget.AppCompat.Button.Colored"
-                        android:layout_gravity="end"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:background="@drawable/ocr_save_button"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:text="Save PDF" />
 
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,20 +80,22 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="5dp">
+
                     <TextView
-                        android:text="Cropped Image"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textColor="@color/colorPrimary"/>
+                        android:text="Cropped Image"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20sp" />
+
                     <ImageView
-                        android:maxHeight="500dp"
                         android:id="@+id/imageIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top|center"
+                        android:layout_marginTop="18dp"
                         android:adjustViewBounds="true"
-                        android:layout_marginTop="18dp"/>
+                        android:maxHeight="500dp" />
 
 
                 </LinearLayout>

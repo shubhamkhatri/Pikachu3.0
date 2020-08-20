@@ -145,12 +145,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="8dp"
+            android:background="@drawable/roundedbutton"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="CALCULATE"
-            android:textSize="@dimen/button"
             android:textColor="@android:color/white"
-            android:background="@drawable/roundedbutton"/>
+            android:textSize="@dimen/button" />
 
 
         <androidx.cardview.widget.CardView
@@ -216,16 +216,16 @@
                             android:text="Category"
                             android:textAlignment="center"
                             android:textColor="@color/heading"
-                            android:textStyle="bold"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/bmi_ans_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:textSize="@dimen/heading2"
-                            android:text="•••"/>
+                            android:text="•••"
+                            android:textSize="@dimen/heading2" />
 
                     </LinearLayout>
 
@@ -243,16 +243,16 @@
                             android:text="Difference"
                             android:textAlignment="center"
                             android:textColor="@color/heading"
-                            android:textStyle="bold"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/bmi_diff_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:textSize="@dimen/heading2"
-                            android:text="•••"/>
+                            android:text="•••"
+                            android:textSize="@dimen/heading2" />
 
                     </LinearLayout>
 

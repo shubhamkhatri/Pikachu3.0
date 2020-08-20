@@ -27,8 +27,8 @@
         android:id="@+id/no_med"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Medicine Alarm yet"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:text="No Medicine Alarm yet" />
 
 
 </RelativeLayout>

@@ -8,18 +8,18 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
         app:cardCornerRadius="6dp"
         app:cardPreventCornerOverlap="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_marginLeft="10dp">
+            android:padding="10dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
-                    android:textSize="@dimen/smallText"/>
+                    android:textSize="@dimen/smallText" />
 
                 <TextView
                     android:id="@+id/list_donar_date"
@@ -40,9 +40,9 @@
                     android:layout_marginTop="18dp"
                     android:layout_marginRight="5dp"
                     android:text="22.03.2017"
-                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/smallText"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textStyle="bold" />
 
 
                 <TextView
@@ -52,44 +52,44 @@
                     android:layout_below="@id/name_text"
                     android:layout_marginBottom="4dp"
                     android:text="Shubham"
-                    android:textSize="@dimen/normalText"
-                    android:textColor="@color/heading_text"/>
+                    android:textColor="@color/heading_text"
+                    android:textSize="@dimen/normalText" />
             </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Blood Group"
-                android:textSize="@dimen/smallText"/>
+                android:textSize="@dimen/smallText" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/list_donar_blood"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="AB+"
-                android:textSize="@dimen/normalText"
-                android:textColor="@color/heading_text"/>
+                <TextView
+                    android:id="@+id/list_donar_blood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="AB+"
+                    android:textColor="@color/heading_text"
+                    android:textSize="@dimen/normalText" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="City" 
-                android:layout_below="@id/list_donar_blood"
-                android:textSize="@dimen/smallText" />
-            
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/list_donar_blood"
+                    android:text="City"
+                    android:textSize="@dimen/smallText" />
+
                 <ImageView
                     android:id="@+id/list_donar_gender"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
-                    android:scaleType="centerCrop"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/male"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/male" />
             </RelativeLayout>
 
             <TextView
@@ -97,8 +97,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Delhi"
-                android:textSize="@dimen/normalText"
-                android:textColor="@color/heading_text"/>
+                android:textColor="@color/heading_text"
+                android:textSize="@dimen/normalText" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
