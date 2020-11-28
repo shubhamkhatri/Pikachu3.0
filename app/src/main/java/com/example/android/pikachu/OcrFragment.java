@@ -1,3 +1,17 @@
+/*
+ *  Copyright (c) 2020 Pikachu(shubham khatri). All rights reserved.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 package com.example.android.pikachu;
 
 import android.content.DialogInterface;
@@ -34,7 +48,7 @@ public class OcrFragment extends Fragment {
     final ArrayList<word> fileList = new ArrayList<word>();
     private FloatingActionButton add;
     private FloatingActionButton graph;
-    private TextView defaultOcr;
+   // private TextView defaultOcr;
 
     @Nullable
     @Override
@@ -43,7 +57,7 @@ public class OcrFragment extends Fragment {
         File root = new File(Environment.getExternalStorageDirectory() + "/" + "PikachuDocument");
 
         ListDir(root, v);
-        defaultOcr = (TextView) v.findViewById(R.id.no_reports);
+       // defaultOcr = (TextView) v.findViewById(R.id.no_reports);
         graph = v.findViewById(R.id.graph_view);
         graph.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,9 +109,9 @@ public class OcrFragment extends Fragment {
                 fileList.add(new word(getCategorySet, file.getName()));
             }
             if (fileList.isEmpty()) {
-                defaultOcr.setVisibility(View.VISIBLE);
+                //defaultOcr.setVisibility(View.VISIBLE);
             } else {
-                defaultOcr.setVisibility(View.GONE);
+                //defaultOcr.setVisibility(View.GONE);
                 final DocumentAdaptor directoryList = new DocumentAdaptor(getActivity(), fileList, R.color.colorAccent);
 
                 ListView listView = (ListView) v.findViewById(R.id.list);
